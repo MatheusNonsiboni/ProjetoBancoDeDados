@@ -9,13 +9,13 @@ DROP TABLE IF EXISTS Escola CASCADE;
 DROP TABLE IF EXISTS Regiao CASCADE;
 
 CREATE TABLE Regiao (
-    id_regiao SERIAL PRIMARY KEY,
+    id_regiao INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     mesorregiao VARCHAR(100)
 );
 
 CREATE TABLE Escola (
-    id_escola SERIAL PRIMARY KEY,
+    id_escola INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
     codigo_mec VARCHAR(20),
     cidade VARCHAR(100),
@@ -28,13 +28,13 @@ CREATE TABLE Escola (
 );
 
 CREATE TABLE Disciplina (
-    id_disciplina SERIAL PRIMARY KEY,
+    id_disciplina INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     area_conhecimento VARCHAR(50)
 );
 
 CREATE TABLE Avaliacao (
-    id_avaliacao SERIAL PRIMARY KEY,
+    id_avaliacao INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     data_avaliacao DATE NOT NULL,
     etapa VARCHAR(50),
@@ -42,7 +42,7 @@ CREATE TABLE Avaliacao (
 );
 
 CREATE TABLE Desempenho_Disciplina (
-    id_desempenho SERIAL PRIMARY KEY,
+    id_desempenho INT AUTO_INCREMENT PRIMARY KEY,
     id_escola INT NOT NULL,
     id_disciplina INT NOT NULL,
     id_avaliacao INT NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE Desempenho_Disciplina (
 );
 
 CREATE TABLE Indicador_Educacional (
-    id_indicador SERIAL PRIMARY KEY,
+    id_indicador INT AUTO_INCREMENT PRIMARY KEY,
     id_escola INT NOT NULL,
     ano INT NOT NULL,
     ideb DECIMAL(4,2) CHECK (ideb BETWEEN 0 AND 10),
