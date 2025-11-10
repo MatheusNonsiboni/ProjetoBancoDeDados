@@ -13,7 +13,6 @@ public class Regiao {
     private String nome;
     private String mesorregiao;
 
-    // Getters e Setters
     public Integer getId_regiao() { 
         return id_regiao; 
     }

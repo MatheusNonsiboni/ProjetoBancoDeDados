@@ -21,9 +21,8 @@ public class RegiaoController {
 
     @PostMapping
     public Regiao cadastrar(@RequestBody Regiao regiao) {
-    return Optional.ofNullable(regiao)
+        return Optional.ofNullable(regiao)
             .map(regiaoRepository::save)
             .orElseThrow(() -> new IllegalArgumentException("Região não pode ser nula."));
-}
-
+    }
 }

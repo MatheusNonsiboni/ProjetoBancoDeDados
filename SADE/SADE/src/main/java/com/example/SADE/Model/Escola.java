@@ -18,8 +18,6 @@ public class Escola {
     @JoinColumn(name = "id_regiao", nullable = false)
     private Regiao regiao;
 
-    // Getters e Setters
-
     public Integer getId_escola() {
         return id_escola;
     }
@@ -68,4 +66,3 @@ public class Escola {
         this.regiao = regiao;
     }
 }
-
