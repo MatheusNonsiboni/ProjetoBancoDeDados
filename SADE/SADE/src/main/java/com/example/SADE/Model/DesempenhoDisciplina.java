@@ -1,23 +1,10 @@
 package com.example.SADE.Model;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "Desempenho_Disciplina")
 public class DesempenhoDisciplina {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_desempenho;
-
-    @ManyToOne
-    @JoinColumn(name = "id_escola", nullable = false)
     private Escola escola;
-
-    @ManyToOne
-    @JoinColumn(name = "id_disciplina", nullable = false)
     private Disciplina disciplina;
-
     private Integer ano_letivo;
     private Double media_disciplina;
     private Double frequencia_media;

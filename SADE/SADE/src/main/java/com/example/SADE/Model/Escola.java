@@ -1,21 +1,12 @@
 package com.example.SADE.Model;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "Escola")
 public class Escola {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_escola;
 
+    private Integer id_escola;
     private String nome;
     private String codigo_mec;
     private String cidade;
     private String tipo_localizacao;
-
-    @ManyToOne
-    @JoinColumn(name = "id_regiao", nullable = false)
     private Regiao regiao;
 
     public Integer getId_escola() {

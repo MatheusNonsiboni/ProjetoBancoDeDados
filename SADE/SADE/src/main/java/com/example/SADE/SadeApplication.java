@@ -8,6 +8,9 @@ public class SadeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SadeApplication.class, args);
+
+		ConsoleApp console = new ConsoleApp();
+        console.run();
 	}
 
 }

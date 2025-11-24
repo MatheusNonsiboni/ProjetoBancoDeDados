@@ -1,15 +1,8 @@
 package com.example.SADE.Model;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "Regiao")
 public class Regiao {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_regiao;
-
     private String nome;
     private String mesorregiao;
 

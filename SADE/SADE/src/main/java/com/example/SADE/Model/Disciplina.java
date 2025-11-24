@@ -1,14 +1,8 @@
 package com.example.SADE.Model;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "Disciplina")
 public class Disciplina {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_disciplina;
 
+    private Integer id_disciplina;
     private String nome;
 
     public Integer getId_disciplina() {

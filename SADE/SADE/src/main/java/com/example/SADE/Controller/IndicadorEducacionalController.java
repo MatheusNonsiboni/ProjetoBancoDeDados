@@ -1,37 +1,49 @@
 package com.example.SADE.Controller;
 
-import com.example.SADE.Model.IndicadorEducacional;
-import com.example.SADE.Repository.IndicadorEducacionalRepository;
+import com.example.SADE.Model.*;
+import com.example.SADE.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/indicadores")
-@Validated
+@RequestMapping("/api/indicadores")
+@CrossOrigin("*")
 public class IndicadorEducacionalController {
 
     @Autowired
-    private IndicadorEducacionalRepository indicadorRepository;
+    private IndicadorEducacionalRepository repo;
+
+    @Autowired
+    private EscolaRepository escolaRepo;
 
     @GetMapping
     public List<IndicadorEducacional> listar() {
-        return indicadorRepository.findAll();
+        return repo.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public IndicadorEducacional buscar(@PathVariable int id) {
+        return repo.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody IndicadorEducacional indicador) {
-        if (indicador.getAno_letivo() == null || 
-            indicador.getIdeb() == null || 
-            indicador.getTaxa_evasao() == null || 
-            indicador.getEscola() == null) {
-            return ResponseEntity.badRequest().body("Erro: Todos os campos (ano_letivo, ideb, taxa_evasao e escola) são obrigatórios.");
-        }
+    public IndicadorEducacional cadastrar(@RequestBody IndicadorEducacional i) {
 
-        IndicadorEducacional salvo = indicadorRepository.save(indicador);
-        return ResponseEntity.ok(salvo);
+        Escola e = escolaRepo.findById(i.getEscola().getId_escola());
+        if (e == null) throw new RuntimeException("Escola não encontrada.");
+
+        i.setEscola(e);
+        return repo.save(i);
+    }
+
+    @GetMapping("/ranking/ideb")
+    public List<IndicadorEducacional> rankingIdeb() {
+        return repo.findAll().stream()
+                .sorted(Comparator.comparing(IndicadorEducacional::getIdeb).reversed())
+                .collect(Collectors.toList());
     }
 }

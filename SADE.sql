@@ -64,25 +64,19 @@ CREATE TABLE Indicador_Educacional (
         ON DELETE CASCADE
 );
 
+CREATE TABLE Gestor (
+    id_gestor INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    codigo_acesso VARCHAR(20) NOT NULL UNIQUE,
+    id_escola INT NOT NULL,
+    CONSTRAINT fk_gestor_escola FOREIGN KEY (id_escola)
+        REFERENCES Escola(id_escola)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
 CREATE INDEX idx_escola_regiao ON Escola (id_regiao);
 CREATE INDEX idx_desempenho_disciplina ON Desempenho_Disciplina (id_escola, id_disciplina, ano_letivo);
 CREATE INDEX idx_indicador_escola_ano ON Indicador_Educacional (id_escola, ano);
-
-INSERT INTO Regiao (nome, mesorregiao) VALUES ('Norte', 'Maringá');
-INSERT INTO Regiao (nome, mesorregiao) VALUES ('Oeste', 'Cascavel');
-
-INSERT INTO Escola (nome, codigo_mec, cidade, tipo_localizacao, id_regiao)
-VALUES ('Colégio Estadual Londrina', '12345', 'Londrina', 'Urbana', 1);
-
-INSERT INTO Disciplina (nome) VALUES ('Matemática');
-INSERT INTO Disciplina (nome) VALUES ('Português');
-
-INSERT INTO Desempenho_Disciplina (id_escola, id_disciplina, ano_letivo, media_disciplina, frequencia_media)
-VALUES (1, 1, 2025, 7.8, 92.5);
-
-INSERT INTO Indicador_Educacional (id_escola, ano_letivo, ideb, taxa_evasao)
-VALUES (1, 2025, 6.4, 3.2);
-
-SELECT * FROM Escola;
-SELECT * FROM Desempenho_Disciplina;
-SELECT * FROM Indicador_Educacional;
+CREATE INDEX idx_gestor_escola ON Gestor (id_escola);

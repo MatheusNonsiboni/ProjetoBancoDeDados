@@ -4,25 +4,29 @@ import com.example.SADE.Model.Regiao;
 import com.example.SADE.Repository.RegiaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/regioes")
+@RequestMapping("/api/regioes")
+@CrossOrigin("*")
 public class RegiaoController {
 
     @Autowired
-    private RegiaoRepository regiaoRepository;
+    private RegiaoRepository repo;
 
     @GetMapping
     public List<Regiao> listar() {
-        return regiaoRepository.findAll();
+        return repo.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Regiao buscar(@PathVariable int id) {
+        return repo.findById(id);
     }
 
     @PostMapping
-    public Regiao cadastrar(@RequestBody Regiao regiao) {
-        return Optional.ofNullable(regiao)
-            .map(regiaoRepository::save)
-            .orElseThrow(() -> new IllegalArgumentException("Região não pode ser nula."));
+    public Regiao cadastrar(@RequestBody Regiao r) {
+        return repo.save(r);
     }
 }

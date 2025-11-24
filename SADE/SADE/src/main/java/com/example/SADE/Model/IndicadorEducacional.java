@@ -1,27 +1,11 @@
 package com.example.SADE.Model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-
-@Entity
-@Table(name = "Indicador_Educacional")
 public class IndicadorEducacional {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_indicador;
-
-    @ManyToOne
-    @JoinColumn(name = "id_escola", nullable = false)
     private Escola escola;
-
-    @NotNull
     private Integer ano_letivo;
-
-    @NotNull
     private Double ideb;
-
-    @NotNull
     private Double taxa_evasao;
 
     public Integer getId_indicador() {
