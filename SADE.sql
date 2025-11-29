@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS Indicador_Educacional CASCADE;
 DROP TABLE IF EXISTS Disciplina CASCADE;
 DROP TABLE IF EXISTS Escola CASCADE;
 DROP TABLE IF EXISTS Regiao CASCADE;
+DROP TABLE IF EXISTS Gestor CASCADE;
 
 CREATE TABLE Regiao (
     id_regiao INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,9 +30,14 @@ CREATE TABLE Escola (
 CREATE TABLE Disciplina (
     id_disciplina INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    area_conhecimento VARCHAR(50)
+    area_conhecimento VARCHAR(50),
+    id_escola INT NOT NULL, 
+    
+    CONSTRAINT fk_disciplina_escola FOREIGN KEY (id_escola)
+        REFERENCES Escola (id_escola)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
-
 CREATE TABLE Desempenho_Disciplina (
     id_desempenho INT AUTO_INCREMENT PRIMARY KEY,
     id_escola INT NOT NULL,
@@ -67,7 +73,6 @@ CREATE TABLE Indicador_Educacional (
 CREATE TABLE Gestor (
     id_gestor INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
     codigo_acesso VARCHAR(20) NOT NULL UNIQUE,
     id_escola INT NOT NULL,
     CONSTRAINT fk_gestor_escola FOREIGN KEY (id_escola)
@@ -78,5 +83,11 @@ CREATE TABLE Gestor (
 
 CREATE INDEX idx_escola_regiao ON Escola (id_regiao);
 CREATE INDEX idx_desempenho_disciplina ON Desempenho_Disciplina (id_escola, id_disciplina, ano_letivo);
-CREATE INDEX idx_indicador_escola_ano ON Indicador_Educacional (id_escola, ano);
+CREATE INDEX idx_indicador_escola_ano ON Indicador_Educacional (id_escola, ano_letivo);
 CREATE INDEX idx_gestor_escola ON Gestor (id_escola);
+
+SELECT * FROM gestor;
+SELECT * FROM disciplina;
+SELECT * FROM escola;
+SELECT * FROM regiao;
+SELECT * FROM indicador_educacional;
