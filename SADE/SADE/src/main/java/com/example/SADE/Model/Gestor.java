@@ -4,7 +4,6 @@ public class Gestor {
 
     private Integer id_gestor;
     private String nome;
-    private String email;
     private String codigo_acesso;
     private Escola escola;
 
@@ -22,14 +21,6 @@ public class Gestor {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getCodigo_acesso() {

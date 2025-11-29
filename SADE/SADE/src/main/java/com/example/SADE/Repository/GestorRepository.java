@@ -13,14 +13,13 @@ import java.util.List;
 public class GestorRepository {
 
     public Gestor save(Gestor g) {
-        String sql = "INSERT INTO Gestor (nome, email, codigo_acesso, id_escola) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Gestor (nome, codigo_acesso, id_escola) VALUES (?, ?, ?)";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, g.getNome());
-            ps.setString(2, g.getEmail());
-            ps.setString(3, g.getCodigo_acesso());
-            ps.setInt(4, g.getEscola().getId_escola());
+            ps.setString(2, g.getCodigo_acesso());
+            ps.setInt(3, g.getEscola().getId_escola());
             ps.executeUpdate();
 
             try (ResultSet keys = ps.getGeneratedKeys()) {
@@ -34,7 +33,7 @@ public class GestorRepository {
     }
 
     public Gestor findByCodigoAcesso(String codigo) {
-        String sql = "SELECT g.id_gestor, g.nome, g.email, g.codigo_acesso, g.id_escola, " +
+        String sql = "SELECT g.id_gestor, g.nome, g.codigo_acesso, g.id_escola, " +
                      "e.nome as escola_nome, e.codigo_mec, e.cidade, e.tipo_localizacao, r.id_regiao, r.nome as reg_nome, r.mesorregiao " +
                      "FROM Gestor g " +
                      "LEFT JOIN Escola e ON g.id_escola = e.id_escola " +
@@ -50,7 +49,6 @@ public class GestorRepository {
                     Gestor g = new Gestor();
                     g.setId_gestor(rs.getInt("id_gestor"));
                     g.setNome(rs.getString("nome"));
-                    g.setEmail(rs.getString("email"));
                     g.setCodigo_acesso(rs.getString("codigo_acesso"));
 
                     Escola e = new Escola();
@@ -79,7 +77,7 @@ public class GestorRepository {
     }
 
     public Gestor findById(int id) {
-        String sql = "SELECT id_gestor, nome, email, codigo_acesso, id_escola FROM Gestor WHERE id_gestor = ?";
+        String sql = "SELECT id_gestor, nome, codigo_acesso, id_escola FROM Gestor WHERE id_gestor = ?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -88,7 +86,6 @@ public class GestorRepository {
                     Gestor g = new Gestor();
                     g.setId_gestor(rs.getInt("id_gestor"));
                     g.setNome(rs.getString("nome"));
-                    g.setEmail(rs.getString("email"));
                     g.setCodigo_acesso(rs.getString("codigo_acesso"));
                     return g;
                 }
@@ -101,7 +98,7 @@ public class GestorRepository {
 
     public List<Gestor> findAll() {
         List<Gestor> lista = new ArrayList<>();
-        String sql = "SELECT id_gestor, nome, email, codigo_acesso, id_escola FROM Gestor ORDER BY nome";
+        String sql = "SELECT id_gestor, nome, codigo_acesso, id_escola FROM Gestor ORDER BY nome";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -110,7 +107,6 @@ public class GestorRepository {
                 Gestor g = new Gestor();
                 g.setId_gestor(rs.getInt("id_gestor"));
                 g.setNome(rs.getString("nome"));
-                g.setEmail(rs.getString("email"));
                 g.setCodigo_acesso(rs.getString("codigo_acesso"));
                 lista.add(g);
             }
