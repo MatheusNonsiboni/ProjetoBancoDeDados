@@ -10,7 +10,15 @@ export default function PainelSecretaria() {
   const [escolas, setEscolas] = useState([]);
 
   const [formRegiao, setFormRegiao] = useState({ nome: "", mesorregiao: "" });
-  const [formEscola, setFormEscola] = useState({ nome: "", codigoMec: "", cidade: "", idRegiao: "" });
+
+  const [formEscola, setFormEscola] = useState({ 
+    nome: "", 
+    codigoMec: "", 
+    cidade: "", 
+    idRegiao: "",
+    tipoLocalizacao: "Urbana" 
+  });
+  
   const [formGestor, setFormGestor] = useState({ nome: "", idEscola: "" });
 
   const [codigoGerado, setCodigoGerado] = useState(null);
@@ -48,12 +56,14 @@ export default function PainelSecretaria() {
         nome: formEscola.nome,
         codigo_mec: formEscola.codigoMec,
         cidade: formEscola.cidade,
+        tipo_localizacao: formEscola.tipoLocalizacao,
         regiao: { id_regiao: formEscola.idRegiao }
       };
 
       await criarEscola(payload);
       alert("Escola criada com sucesso!");
-      setFormEscola({ nome: "", codigoMec: "", cidade: "", idRegiao: "" });
+
+      setFormEscola({ nome: "", codigoMec: "", cidade: "", idRegiao: "", tipoLocalizacao: "Urbana" });
       carregarDados();
     } catch (error) {
       console.error(error);
@@ -114,18 +124,33 @@ export default function PainelSecretaria() {
             value={formEscola.nome}
             onChange={e => setFormEscola({...formEscola, nome: e.target.value})}
             required
+            style={{ width: "300px", marginRight: "10px" }}
           />
           <input 
             placeholder="Código MEC" 
             value={formEscola.codigoMec}
             onChange={e => setFormEscola({...formEscola, codigoMec: e.target.value})}
+            style={{ marginRight: "10px" }}
           />
           <input 
             placeholder="Cidade" 
             value={formEscola.cidade}
             onChange={e => setFormEscola({...formEscola, cidade: e.target.value})}
+            style={{ marginRight: "10px" }}
           />
+
+          <label>Localização: </label>
+          <select 
+            value={formEscola.tipoLocalizacao} 
+            onChange={e => setFormEscola({...formEscola, tipoLocalizacao: e.target.value})}
+            style={{ marginRight: "10px", padding: "5px" }}
+          >
+            <option value="Urbana">Urbana</option>
+            <option value="Rural">Rural</option>
+          </select>
           
+          <br /><br />
+
           <select 
             value={formEscola.idRegiao} 
             onChange={e => setFormEscola({...formEscola, idRegiao: e.target.value})}
@@ -139,13 +164,13 @@ export default function PainelSecretaria() {
             ))}
           </select>
 
-          <button type="submit">Salvar Escola</button>
+          <button type="submit" style={{ marginLeft: "10px" }}>Salvar Escola</button>
         </form>
       </div>
 
       <div style={{ border: "2px solid #007bff", padding: "15px", backgroundColor: "#f0f8ff" }}>
         <h3>3. Cadastrar Gestor</h3>
-        
+
         {codigoGerado && (
           <div style={{ backgroundColor: "#d4edda", padding: "10px", margin: "10px 0", color: "#155724" }}>
             <strong>SUCESSO!</strong> O código do novo gestor é: <h2>{codigoGerado}</h2>
@@ -159,6 +184,7 @@ export default function PainelSecretaria() {
             value={formGestor.nome}
             onChange={e => setFormGestor({...formGestor, nome: e.target.value})}
             required
+            style={{ marginRight: "10px" }}
           />
           
           <select 
@@ -174,7 +200,7 @@ export default function PainelSecretaria() {
             ))}
           </select>
 
-          <button type="submit">Gerar Acesso para Gestor</button>
+          <button type="submit" style={{ marginLeft: "10px" }}>Gerar Acesso para Gestor</button>
         </form>
       </div>
 

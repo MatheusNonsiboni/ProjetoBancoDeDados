@@ -27,6 +27,11 @@ export async function criarDesempenho(desempenho) {
   return response.data;
 }
 
+export async function criarIndicador(indicador) {
+  const response = await axios.post(`${API_BASE}/indicadores`, indicador);
+  return response.data;
+}
+
 export async function getRanking(disciplinaNome, regiaoNome) {
     const response = await axios.get(`${API_BASE}/desempenhos/ranking`, {
         params: { disciplina: disciplinaNome, regiao: regiaoNome }
