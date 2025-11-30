@@ -54,7 +54,6 @@ public class DesempenhoDisciplinaRepository {
                 d.setMedia_disciplina(rs.getDouble("media_disciplina"));
                 d.setFrequencia_media(rs.getDouble("frequencia_media"));
 
-                // Escola + Regiao
                 Escola e = new Escola();
                 e.setId_escola(rs.getInt("id_escola"));
                 e.setNome(rs.getString("escola_nome"));
@@ -72,7 +71,6 @@ public class DesempenhoDisciplinaRepository {
                 }
                 d.setEscola(e);
 
-                // Disciplina (pode ser null)
                 int idDisc = rs.getInt("id_disciplina");
                 if (!rs.wasNull()) {
                     Disciplina dis = new Disciplina();

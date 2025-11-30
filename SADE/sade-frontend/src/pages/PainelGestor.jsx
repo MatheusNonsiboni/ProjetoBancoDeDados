@@ -80,9 +80,9 @@ export default function PainelGestor() {
 
     try {
       const payload = {
-        ano: parseInt(formDesempenho.ano),
-        media: parseFloat(formDesempenho.media),
-        frequencia: parseFloat(formDesempenho.frequencia),
+        ano_letivo: parseInt(formDesempenho.ano),
+        media_disciplina: parseFloat(formDesempenho.media),
+        frequencia_media: parseFloat(formDesempenho.frequencia),
         disciplina: { id_disciplina: formDesempenho.idDisciplina },
         escola: { id_escola: gestor.escola.id_escola }
       };
